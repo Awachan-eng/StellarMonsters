@@ -1,1 +1,46 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#171b2b">
+  <title>オリジナルRPG</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game">
+    <header id="game-header">
+      <h1>オリジナルRPG</h1>
+      <div id="stage-name">STAGE 0001</div>
+    </header>
+
+    <main id="battle-screen">
+      <section id="enemy-area">
+        <h2>ENEMIES</h2>
+        <div id="enemy-list"></div>
+      </section>
+
+      <section id="field-area">
+        <div id="battle-field"></div>
+      </section>
+
+      <section id="ally-area">
+        <h2>ALLIES</h2>
+        <div id="team-hp">
+          <span>TEAM HP</span>
+          <span id="current-hp">0 / 0</span>
+        </div>
+        <div id="ally-list"></div>
+      </section>
+    </main>
+
+    <footer id="game-footer">
+      <div id="battle-message">戦闘準備中...</div>
+      <button id="action-button" disabled>行動終了</button>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
