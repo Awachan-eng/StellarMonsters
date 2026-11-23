@@ -1,4 +1,3 @@
-
 /* =========================
    ゲーム基本設定
 ========================= */
@@ -13,6 +12,17 @@ const GAME_CONFIG = {
 };
 
 /* =========================
+   味方初期配置
+========================= */
+
+const ALLY_INITIAL_POSITIONS = [
+  { number: 1, position: "B10" },
+  { number: 2, position: "D10" },
+  { number: 3, position: "F10" },
+  { number: 4, position: "H10" }
+];
+
+/* =========================
    フィールド生成
 ========================= */
 
@@ -24,48 +34,49 @@ function createBattleField() {
     return;
   }
 
-  // 既存のマスを削除
   field.innerHTML = "";
 
-  // 11行 × 9列のマスを生成
   for (let row = 1; row <= GAME_CONFIG.rows; row++) {
-    for (
-      let column = 0;
-      column < GAME_CONFIG.columns;
-      column++
-    ) {
+    for (let column = 0; column < GAME_CONFIG.columns; column++) {
       const cell = document.createElement("div");
 
-      // マスの基本情報
       cell.classList.add("field-cell");
 
-      // 座標情報を保存
-      const columnName =
-        GAME_CONFIG.columnNames[column];
-
+      const columnName = GAME_CONFIG.columnNames[column];
       const position = columnName + row;
 
       cell.dataset.row = row;
       cell.dataset.column = columnName;
       cell.dataset.position = position;
 
-      // マスの説明
-      cell.setAttribute(
-        "aria-label",
-        position
-      );
-
+      cell.setAttribute("aria-label", position);
       cell.title = position;
 
-      // フィールドに追加
+      // 味方がいるマスか確認
+      const ally = ALLY_INITIAL_POSITIONS.find(
+        character => character.position === position
+      );
+
+      if (ally) {
+        cell.textContent = ally.number;
+
+        cell.style.backgroundColor = "#3978c5";
+        cell.style.color = "#ffffff";
+        cell.style.fontWeight = "bold";
+        cell.style.fontSize = "14px";
+        cell.style.display = "flex";
+        cell.style.justifyContent = "center";
+        cell.style.alignItems = "center";
+
+        cell.dataset.ally = ally.number;
+      }
+
       field.appendChild(cell);
     }
   }
 
   console.log("戦闘フィールドを生成しました。");
-  console.log(
-    `生成したマス数：${GAME_CONFIG.rows * GAME_CONFIG.columns}`
-  );
+  console.log("味方4体を初期配置しました。");
 }
 
 /* =========================
