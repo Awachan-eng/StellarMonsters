@@ -1,18 +1,5 @@
 
 /* =========================
-   ゲーム基本設定
-========================= */
-
-const GAME_CONFIG = {
-  rows: 11,
-  columns: 9,
-  columnNames: [
-    "A", "B", "C", "D", "E",
-    "F", "G", "H", "I"
-  ]
-};
-
-/* =========================
    味方データ
 ========================= */
 
@@ -58,7 +45,6 @@ function createAllyList() {
     list.appendChild(card);
   });
 
-  // チーム全体のHP
   const totalHP = ALLY_DATA.reduce(
     (total, ally) => total + ally.hp,
     0
@@ -69,68 +55,6 @@ function createAllyList() {
   if (hpDisplay) {
     hpDisplay.textContent =
       `${totalHP.toLocaleString()} / ${totalHP.toLocaleString()}`;
-  }
-}
-
-/* =========================
-   フィールド生成
-========================= */
-
-function createBattleField() {
-  const field = document.getElementById("battle-field");
-
-  if (!field) {
-    console.error("戦闘フィールドが見つかりません。");
-    return;
-  }
-
-  field.innerHTML = "";
-
-  for (let row = 1; row <= GAME_CONFIG.rows; row++) {
-    for (let column = 0; column < GAME_CONFIG.columns; column++) {
-      const cell = document.createElement("div");
-
-      cell.classList.add("field-cell");
-
-      const columnName = GAME_CONFIG.columnNames[column];
-      const position = columnName + row;
-
-      cell.dataset.row = row;
-      cell.dataset.column = columnName;
-      cell.dataset.position = position;
-
-      cell.title = position;
-
-      const ally = ALLY_DATA.find(
-        character => character.position === position
-      );
-
-      const enemy = ENEMY_DATA.find(
-        character => character.position === position
-      );
-
-      if (ally) {
-        cell.textContent = ally.number;
-        cell.style.backgroundColor = "#3978c5";
-        cell.style.color = "#ffffff";
-        cell.style.fontWeight = "bold";
-        cell.style.display = "flex";
-        cell.style.justifyContent = "center";
-        cell.style.alignItems = "center";
-      }
-
-      if (enemy) {
-        cell.textContent = "E" + enemy.id;
-        cell.style.backgroundColor = "#b64250";
-        cell.style.color = "#ffffff";
-        cell.style.fontWeight = "bold";
-        cell.style.display = "flex";
-        cell.style.justifyContent = "center";
-        cell.style.alignItems = "center";
-      }
-
-      field.appendChild(cell);
-    }
   }
 }
 
