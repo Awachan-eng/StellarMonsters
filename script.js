@@ -51,18 +51,14 @@ function createAllyList() {
     card.style.borderRadius = "6px";
     card.style.padding = "8px";
     card.style.fontSize = "12px";
+    card.style.fontWeight = "bold";
 
-    card.innerHTML = `
-      <div style="font-weight:bold;">
-        ${ally.number}. ${ally.name}
-      </div>
-      <div>HP: ${ally.hp.toLocaleString()}</div>
-    `;
+    card.textContent = `${ally.number}. ${ally.name}`;
 
     list.appendChild(card);
   });
 
-  // チームHP表示
+  // チーム全体のHP
   const totalHP = ALLY_DATA.reduce(
     (total, ally) => total + ally.hp,
     0
